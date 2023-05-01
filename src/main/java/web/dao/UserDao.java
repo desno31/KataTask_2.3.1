@@ -2,8 +2,10 @@ package web.dao;
 
 import web.model.User;
 
+import java.util.List;
+
 public interface UserDao {
-    User index();
+    List<User> index();
     void save(User user);
     void delete(User user);
     User getById(int id);
