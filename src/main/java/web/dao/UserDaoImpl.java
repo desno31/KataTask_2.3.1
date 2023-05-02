@@ -1,6 +1,7 @@
 package web.dao;
 
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 import web.model.User;
 
 import javax.persistence.EntityManager;
@@ -9,9 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
+@Transactional
 public class UserDaoImpl implements UserDao{
 
     @PersistenceContext
+            //(unitName = "PersistanceUnit")
     private EntityManager em;
     @Override
     public List<User> index() {
@@ -22,9 +25,7 @@ public class UserDaoImpl implements UserDao{
 //        users.add(new User("q","w",12));
 //        users.add(new User("q","w",12));
 //        users.add(new User("q","w",12));
-        em.getTransaction().begin();
-        users = em.createQuery("select User from User").getResultList();
-        em.getTransaction().commit();
+        users = em.createQuery("select u from User u", User.class).getResultList();
         return users;
     }
 
