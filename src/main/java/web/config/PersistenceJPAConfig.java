@@ -26,7 +26,6 @@ public class PersistenceJPAConfig{
                 = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource());
         em.setPackagesToScan("web");
-        //em.setPersistenceUnitName("PersistanceUnit");
 
         em.setJpaVendorAdapter(getJpaVendorAdapter());
         em.setJpaProperties(additionalProperties());
