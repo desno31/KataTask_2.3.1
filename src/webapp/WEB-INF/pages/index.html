@@ -3,13 +3,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title></title>
+    <title>List of all users</title>
 </head>
 <body>
-<div>
-    <th:block th:each="msg : ${messages}">
-        <h1 th:text="${msg}"></h1>
-    </th:block>
-</div>
+<h2>All users</h2>
+</br>
+<table>
+    <tr bgcolor="#ff7f50"><th> ID </th><th>Name</th><th>Second name</th><th>Age</th></tr>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.getId()}" bgcolor="#00bfff">Id</td>
+        <td th:text="${user.getFirstName()}" bgcolor="#f0e68c"> Name </td>
+        <td th:text="${user.getSecondName()}" bgcolor="#f0e68c"> Second name </td>
+        <td th:text="${user.getAge()}" bgcolor="#f0e68c"> Age </td>
+        <td><form th:method="GET" th:action="@{/users/{id}/edit(id=${user.getId()})}">
+            <input type="submit" value="edit">
+        </form></td>
+        <td><form th:method="DELETE" th:action="@{/users/{id}(id=${user.getId()})}">
+        <input type="submit" value="delete">
+        </form></td>
+    </tr>
+</table>
+</br></br>
+<form th:method="GET" th:action="@{/users/new}">
+    <input type="submit" value="Add new user">
+</form>
 </body>
 </html>
