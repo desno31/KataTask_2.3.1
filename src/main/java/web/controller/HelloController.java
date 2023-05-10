@@ -39,12 +39,6 @@ public class HelloController {
 		return "redirect:/users";
 	}
 
-/*	@GetMapping(value = "/{id}")
-	public String show(@PathVariable("id") int id, Model model) {
-		model.addAttribute("user", userDao.getById(id));
-		return "show";
-	}*/
-
 	@GetMapping("/{id}/edit")
 	public String edit(Model model, @PathVariable("id") int id) {
 		model.addAttribute("user", userDao.getById(id));
