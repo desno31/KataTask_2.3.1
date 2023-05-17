@@ -1,14 +1,12 @@
 package web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import web.dao.UserDao;
-import web.dao.UserDaoImpl;
 import web.model.User;
+import web.service.UserService;
 
 import javax.validation.Valid;
 
@@ -17,11 +15,11 @@ import javax.validation.Valid;
 public class HelloController {
 
 	@Autowired
-	private UserDao userDao;
+	private UserService userService;
 
 	@GetMapping
 	public String index(Model model) {
-		model.addAttribute("users", userDao.index());
+		model.addAttribute("users", userService.index());
 		return "index";
 	}
 
@@ -35,13 +33,13 @@ public class HelloController {
 		if (bindingResult.hasErrors()) {
 			return "new";
 		}
-		userDao.save(user);
+		userService.save(user);
 		return "redirect:/users";
 	}
 
 	@GetMapping("/{id}/edit")
 	public String edit(Model model, @PathVariable("id") int id) {
-		model.addAttribute("user", userDao.getById(id));
+		model.addAttribute("user", userService.getById(id));
 		return "edit";
 	}
 
@@ -51,13 +49,13 @@ public class HelloController {
 		if (bindingResult.hasErrors()) {
 			return "edit";
 		}
-		userDao.edit(user);
+		userService.edit(user);
 		return "redirect:/users";
 	}
 
 	@DeleteMapping("/{id}")
 	public String delete(@PathVariable("id") int id) {
-		userDao.deleteById(id);
+		userService.deleteById(id);
 		return "redirect:/users";
 	}
 }
